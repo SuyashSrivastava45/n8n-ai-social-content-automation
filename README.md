@@ -1,29 +1,35 @@
 # n8n AI Social Content Automation
 
-An n8n workflow template that automatically converts article links into
-LinkedIn and X (Twitter) posts using Google Gemini.
+Automate the process of turning article links into platform-ready social media posts using n8n and AI.
 
-## What this template does
-- Monitors Google Sheets for new article links
-- Summarizes content using AI
-- Generates platform-specific posts
-- Auto-publishes to LinkedIn and X
+This project demonstrates how to monitor a content source, generate AI-powered summaries, and publish optimized posts to social platforms with minimal manual effort.
 
-## How to use
-1. Import the JSON workflow into n8n
-2. Add your own credentials (Google, LinkedIn, X, Gemini)
-3. Update the Google Sheet with article links
-4. Activate the workflow
+## Quick Start
 
-## Requirements
-- n8n (cloud or self-hosted)
-- Google Sheets access
-- Google Gemini API
-- LinkedIn & X developer access
+1. Import the workflow JSON into n8n  
+2. Configure required credentials  
+3. Add content links to the data source  
+4. Activate the workflow  
 
-## Security
-- No API keys are hardcoded
-- Uses n8n credential manager
+---
 
-## License
-MIT
+## 📸 Workflow Overview (Image Placeholder)
+
+
+
+**[ IMAGE PLACEHOLDER — <img width="1475" height="528" alt="Screenshot 2026-01-09 140918" src="https://github.com/user-attachments/assets/e6cfa46e-ff98-4fa3-97d5-bc311ef42927" />
+ ]**
+
+---
+
+## Usage
+
+This workflow is designed to be simple and reusable.
+
+- Add a new content link to the configured data source (e.g., Google Sheets)
+- The workflow automatically:
+  - Summarizes the content using an AI model
+  - Generates platform-specific posts
+  - Publishes them to the connected social accounts
+
+

@@ -1,0 +1,297 @@
+{
+  "name": "summriazer_automation",
+  "nodes": [
+    {
+      "parameters": {
+        "pollTimes": {
+          "item": [
+            {
+              "mode": "everyMinute"
+            }
+          ]
+        },
+        "documentId": {
+          "__rl": true,
+          "value": "1ZkGJmvJjXHSksmdudMC198fwD8L6HUymF7zJ-tIR8c8",
+          "mode": "list",
+          "cachedResultName": "automation_content",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1ZkGJmvJjXHSksmdudMC198fwD8L6HUymF7zJ-tIR8c8/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1ZkGJmvJjXHSksmdudMC198fwD8L6HUymF7zJ-tIR8c8/edit#gid=0"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheetsTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "ca16f43e-b69b-4a28-9583-e3533c03836d",
+      "name": "Google Sheets Trigger",
+      "credentials": {
+        "googleSheetsTriggerOAuth2Api": {
+          "id": "lLFBJDJBKy8k9saZ",
+          "name": "Google Sheets Trigger account 2128"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=System: \"You are a social media strategist with expertise in content adaptation\"\n\n  User: \"Analyze this article and create a summary that:\n  1. Captures the 3 most important insights\n  2. Includes any actionable advice or tips\n  3. Maintains the original tone and perspective\n  4. Highlights implications for the target audience\n  5. Stays under 200 words for social media adaptation\n  \n  Article:  {{ $json['Content Links'] }}",
+        "batching": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.8,
+      "position": [
+        208,
+        0
+      ],
+      "id": "f0f34cb1-ff49-4d01-84c1-8b74de87924d",
+      "name": "Summarizer"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        208,
+        208
+      ],
+      "id": "5c72d7e8-0ea4-41b4-9fd2-7e479ee43aea",
+      "name": "Google Gemini Chat Model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "v7y4hwv4EBqBBEdW",
+          "name": "Google Gemini(PaLM) Api account 5174"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        1136,
+        96
+      ],
+      "id": "91b1fd36-c2c3-4e1c-b3f4-0a723a010334",
+      "name": "Google Gemini Chat Model1",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "v7y4hwv4EBqBBEdW",
+          "name": "Google Gemini(PaLM) Api account 5174"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "person": "RPWNJSyq0I",
+        "text": "={{ $('Summarizer').item.json.text }}",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.linkedIn",
+      "typeVersion": 1,
+      "position": [
+        1712,
+        -96
+      ],
+      "id": "0dc84143-aef6-4b9d-ab9d-6fc82f78ea96",
+      "name": "Create a post",
+      "credentials": {
+        "linkedInOAuth2Api": {
+          "id": "T5UyTWFv4612LFds",
+          "name": "LinkedIn account 1459"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=You are an AI industry expert.\nWrite a punchy X (Twitter) post analyzing a key AI news article.\nHighlight the most important insight for the AI community, connect it to current AI trends, ask one thought-provoking question, and end with a clear call to action.\nMaximum 30 words. Output ONLY the post text.\n\nArticle summary: {{ $json.text }}",
+        "batching": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.8,
+      "position": [
+        1104,
+        272
+      ],
+      "id": "8cd2d68e-1621-4b34-9e71-36b2bd780818",
+      "name": "content_for_x"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        1152,
+        464
+      ],
+      "id": "9645fe1e-eaff-4a48-80cb-840ba3120fc8",
+      "name": "Google Gemini Chat Model2",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "v7y4hwv4EBqBBEdW",
+          "name": "Google Gemini(PaLM) Api account 5174"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Assume the role of an industry expert and draft a LinkedIn post discussing key points from a news article relevant to artificial intelligence. The post should provide insightful analysis, connect with current industry trends, and encourage professional engagement or discussion. Highlight any notable implications for the industry. Since LinkedIn supports detailed posts, ensure it is informative and structured. Include a professional call to action. Here's a summary of the article: {{ $json.text }}",
+        "batching": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.8,
+      "position": [
+        1120,
+        -112
+      ],
+      "id": "5ab6a039-da31-4d98-950c-ba423e101d97",
+      "name": "content_for_linkedin"
+    },
+    {
+      "parameters": {
+        "text": "={{ $json.text }}",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.twitter",
+      "typeVersion": 2,
+      "position": [
+        1664,
+        224
+      ],
+      "id": "c81642ba-0871-49c1-8066-2effb1a798b5",
+      "name": "Create Tweet",
+      "credentials": {
+        "twitterOAuth2Api": {
+          "id": "y7oYarvEvHjo1OUU",
+          "name": "X account 641"
+        }
+      }
+    }
+  ],
+  "pinData": {
+    "Google Sheets Trigger": [
+      {
+        "json": {
+          "Content Links": "https://www.ibm.com/think/topics/generative-ai"
+        }
+      }
+    ]
+  },
+  "connections": {
+    "Google Sheets Trigger": {
+      "main": [
+        [
+          {
+            "node": "Summarizer",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Summarizer",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Summarizer": {
+      "main": [
+        [
+          {
+            "node": "content_for_linkedin",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "content_for_x",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model1": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "content_for_linkedin",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create a post": {
+      "main": [
+        []
+      ]
+    },
+    "Google Gemini Chat Model2": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "content_for_x",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "content_for_linkedin": {
+      "main": [
+        [
+          {
+            "node": "Create a post",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "content_for_x": {
+      "main": [
+        [
+          {
+            "node": "Create Tweet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "d82d2615-c0a8-4921-94bb-26047d66a578",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "969257b09ad2942bbaff2e2288304f4969030574d109cdeca05bf11f630884df"
+  },
+  "id": "Uu6bpjkhBzAIF1Iv",
+  "tags": []
+}

@@ -13,12 +13,13 @@ This project demonstrates how to monitor a content source, generate AI-powered s
 
 ---
 
-## 📸 Workflow Overview (Image Placeholder)
+## 📸 Workflow Overview 
 
 
 
-**[ IMAGE PLACEHOLDER — <img width="1475" height="528" alt="Screenshot 2026-01-09 140918" src="https://github.com/user-attachments/assets/e6cfa46e-ff98-4fa3-97d5-bc311ef42927" />
- ]**
+ <img width="1475" height="528" alt="Screenshot 2026-01-09 140918" src="https://github.com/user-attachments/assets/e6cfa46e-ff98-4fa3-97d5-bc311ef42927" />
+ <img width="1920" height="1080" alt="Screenshot 2026-01-09 141649" src="https://github.com/user-attachments/assets/759dbc09-0b4d-42ca-bdc9-9e78ab4f8f5d" />
+
 
 ---
 

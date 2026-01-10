@@ -1,4 +1,4 @@
-# n8n AI Social Content Automation
+# n8n AI Social media Content Automation
 
 Automate the process of turning article links into platform-ready social media posts using n8n and AI.
 
